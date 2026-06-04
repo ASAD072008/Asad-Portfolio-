@@ -1,0 +1,58 @@
+import { motion, useMotionValue, useSpring, useTransform } from 'motion/react';
+import React, { useState } from 'react';
+
+export function TiltCard({ children, className = '', tiltIntensity = 10 }: { children: React.ReactNode, className?: string, tiltIntensity?: number }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 140, damping: 15, mass: 0.6 });
+  const mouseYSpring = useSpring(y, { stiffness: 140, damping: 15, mass: 0.6 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], [`${tiltIntensity}deg`, `-${tiltIntensity}deg`]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], [`-${tiltIntensity}deg`, `${tiltIntensity}deg`]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <div style={{ perspective: "1200px" }} className={className}>
+      <motion.div
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{
+          rotateY,
+          rotateX,
+          transformStyle: "preserve-3d",
+        }}
+        className="w-full h-full"
+      >
+        <motion.div 
+          animate={{ z: isHovered ? 20 : 0 }} 
+          transition={{ type: "spring", mass: 0.6, stiffness: 140, damping: 12 }}
+          className="w-full h-full"
+        >
+           {children}
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}

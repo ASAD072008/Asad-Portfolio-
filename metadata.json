@@ -1,0 +1,8 @@
+{
+  "name": "Asadali Portfolio",
+  "description": "Interactive developer portfolio for Asadali Jamir Mujawar, a CS student and Tech Innovator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
