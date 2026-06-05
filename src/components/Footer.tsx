@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Github, Linkedin, Instagram, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Github, Linkedin, Instagram, Mail, ArrowRight, CheckCircle2, Phone } from 'lucide-react';
 import { Magnetic } from './animations/Magnetic';
 import { premiumSpring } from '../lib/animations';
 
@@ -117,9 +117,14 @@ export function Footer() {
           <div className="text-2xl font-display font-bold tracking-tight text-slate-900 mb-2">
             ASAD<span className="text-cyan-600">.DEV</span>
           </div>
-          <p className="text-slate-600 text-sm mb-10 max-w-xs">
+          <p className="text-slate-600 text-sm mb-4 max-w-xs">
             Forging digital experiences at the intersection of AI, design, and engineering.
           </p>
+          
+          <div className="flex items-center justify-center md:justify-end gap-2 text-slate-600 font-mono text-sm mb-10">
+             <Phone className="w-4 h-4 text-cyan-600" />
+             <a href="tel:9356243220" className="hover:text-cyan-600 transition-colors">9356243220</a>
+          </div>
 
           <div className="flex gap-4">
             <Magnetic strength={0.5}>
@@ -162,6 +167,16 @@ export function Footer() {
               >
                 <motion.div whileHover={{ scale: 1.2, rotate: -10 }} transition={premiumSpring}>
                   <Mail className="w-6 h-6" />
+                </motion.div>
+              </a>
+            </Magnetic>
+            <Magnetic strength={0.5}>
+              <a 
+                href="tel:9356243220" 
+                className="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center text-slate-600 border border-slate-200 hover:border-emerald-500/50 hover:text-emerald-500 hover:shadow-[0_15px_30px_rgba(16,185,129,0.15)] transition-colors group"
+              >
+                <motion.div whileHover={{ scale: 1.2, rotate: 10 }} transition={premiumSpring}>
+                  <Phone className="w-6 h-6" />
                 </motion.div>
               </a>
             </Magnetic>
